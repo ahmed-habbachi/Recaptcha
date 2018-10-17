@@ -1,0 +1,19 @@
+stages:
+  - build
+  - deploy
+before_script:
+  - 'dotnet restore'
+build-job:
+ stage: build
+ script:
+  - 'dotnet build'
+
+deploy-job:
+ stage: deploy
+ only:
+  - master
+ artifacts:
+  paths:
+    - ./Auerswald.IdentityServer.Web/bin/Debug/netcoreapp2.1/publish/
+ script:
+  - 'dotnet publish'
